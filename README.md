@@ -1,4 +1,4 @@
-# WOW BE Service
+# JWT based authorization for Nest.js
 
 ## Installation
 
