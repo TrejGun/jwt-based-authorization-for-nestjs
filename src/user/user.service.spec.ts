@@ -5,7 +5,7 @@ import {TypeOrmModule} from "@nestjs/typeorm";
 import ormconfig from "../ormconfig";
 
 
-describe("UsersService", () => {
+describe("userService", () => {
   let service: UserService;
 
   beforeEach(async () => {
