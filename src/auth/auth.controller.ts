@@ -1,27 +1,37 @@
-import {Request} from "express";
-import {Controller, Post, UseGuards, Get, Req} from "@nestjs/common";
-import {AuthGuard} from "@nestjs/passport";
+import {Body, Controller, Get, Post} from "@nestjs/common";
 
 import {AuthService} from "./auth.service";
-import {IAuth} from "./interfaces";
-import {Public, User} from "../common/decorators";
-
-import {UserEntity} from "../user/user.entity";
+import {UserService} from "../user/user.service";
+import {IAuth, ILoginFields, ILogoutFields, IRefreshFields} from "./interfaces";
+import {IUserCreateFields} from "../user/interfaces";
+import {Public} from "../common/decorators";
 
 @Controller("/auth")
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(private readonly authService: AuthService, private readonly userService: UserService) {}
 
   @Public()
-  @UseGuards(AuthGuard("local"))
-  @Post("login")
-  public login(@User() user: UserEntity): IAuth {
-    return this.authService.login(user);
+  @Post("/login")
+  public login(@Body() data: ILoginFields): Promise<IAuth> {
+    return this.authService.login(data);
+  }
+
+  @Post("/refresh")
+  async refreshToken(@Body() data: IRefreshFields): Promise<IAuth> {
+    return this.authService.refresh(data);
   }
 
   @Public()
   @Get("/logout")
-  public logout(@Req() req: Request): void {
-    req.logout();
+  public async logout(@Body() data: ILogoutFields): Promise<boolean> {
+    await this.authService.delete(data);
+    return true;
+  }
+
+  @Public()
+  @Get("/signup")
+  public async signup(@Body() data: IUserCreateFields): Promise<IAuth> {
+    const user = await this.userService.create(data);
+    return this.authService.loginUser(user);
   }
 }

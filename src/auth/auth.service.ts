@@ -1,25 +1,70 @@
-import {Injectable} from "@nestjs/common";
-import {UserService} from "../user/user.service";
+import {Injectable, UnauthorizedException} from "@nestjs/common";
 import {JwtService} from "@nestjs/jwt";
-import {IAuth} from "./interfaces";
+import {InjectRepository} from "@nestjs/typeorm";
+import {Repository, FindConditions, DeleteResult} from "typeorm";
+// eslint-disable-next-line import/default
+import uuid from "uuid";
+
+import {UserService} from "../user/user.service";
+import {UserEntity} from "../user/user.entity";
+import {IAuth, ILoginFields} from "./interfaces";
+import {accessTokenExpiresIn, refreshTokenExpiresIn} from "./auth.constants";
+import {AuthEntity} from "./auth.entity";
 
 @Injectable()
 export class AuthService {
-  constructor(private readonly userService: UserService, private readonly jwtService: JwtService) {}
+  constructor(
+    @InjectRepository(AuthEntity)
+    private readonly authEntityRepository: Repository<AuthEntity>,
+    private readonly userService: UserService,
+    private readonly jwtService: JwtService,
+  ) {}
 
   public async validateUser(email: string, password: string): Promise<any> {
     return this.userService.getByCredentials(email, password);
   }
 
-  public async getUser(id: number): Promise<any> {
-    return this.userService.findOne({id});
+  public async login(data: ILoginFields): Promise<IAuth> {
+    const user = await this.userService.getByCredentials(data.email, data.password);
+
+    if (!user) {
+      throw new UnauthorizedException();
+    }
+
+    return this.loginUser(user);
   }
 
-  public login(user: any): IAuth {
-    const {email, id} = user;
+  public async delete(where: FindConditions<AuthEntity>): Promise<DeleteResult> {
+    return this.authEntityRepository.delete(where);
+  }
+
+  public async refresh(where: FindConditions<AuthEntity>): Promise<IAuth> {
+    const authEntity = await this.authEntityRepository.findOne({where, relations: ["user"]});
+
+    if (!authEntity || authEntity.refreshTokenExpiresAt > new Date().getTime()) {
+      throw new UnauthorizedException();
+    }
+
+    return this.loginUser(authEntity.user);
+  }
+
+  public async loginUser(user: UserEntity): Promise<IAuth> {
+    const refreshToken = uuid.v4();
+    const date = new Date();
+
+    await this.authEntityRepository
+      .create({
+        user,
+        refreshToken,
+        refreshTokenExpiresAt: date.getTime() + refreshTokenExpiresIn,
+      })
+      .save();
+
     return {
-      // eslint-disable-next-line @typescript-eslint/camelcase
-      access_token: this.jwtService.sign({email, id}),
+      accessToken: this.jwtService.sign({email: user.email}, {expiresIn: accessTokenExpiresIn / 1000}),
+      refreshToken: refreshToken,
+      accessTokenExpiresAt: date.getTime() + accessTokenExpiresIn,
+      refreshTokenExpiresAt: date.getTime() + refreshTokenExpiresIn,
     };
   }
 }

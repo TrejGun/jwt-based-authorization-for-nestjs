@@ -1,6 +1,4 @@
 import "./env";
-// eslint-disable-next-line import/default
-import passport from "passport";
 import {NestFactory, Reflector} from "@nestjs/core";
 
 import {ApplicationModule} from "./app.module";
@@ -9,9 +7,6 @@ import {JwtGuard, RolesGuard} from "./common/guards";
 
 async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(ApplicationModule);
-
-  // eslint-disable-next-line import/namespace
-  app.use(passport.initialize());
 
   const reflector = app.get(Reflector);
   app.useGlobalGuards(new JwtGuard(reflector));
