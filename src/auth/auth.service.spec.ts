@@ -6,7 +6,6 @@ import {JwtModule} from "@nestjs/jwt";
 import {AuthService} from "./auth.service";
 import {JwtStrategy} from "./jwt.strategy";
 import {UserModule} from "../user/user.module";
-import {UserEntity} from "../user/user.entity";
 import ormconfig from "../ormconfig";
 import {AuthEntity} from "./auth.entity";
 
@@ -19,12 +18,10 @@ describe("AuthService", () => {
       imports: [
         TypeOrmModule.forRoot(ormconfig),
         TypeOrmModule.forFeature([AuthEntity]),
-        TypeOrmModule.forFeature([UserEntity]),
         UserModule,
         PassportModule,
         JwtModule.register({
           secret: process.env.JWT_SECRET_KEY,
-          signOptions: {expiresIn: "60s"},
         }),
       ],
       providers: [AuthService, JwtStrategy],

@@ -1,7 +1,8 @@
+import {createHash} from "crypto";
+import {Repository, FindConditions} from "typeorm";
+
 import {Injectable, ConflictException} from "@nestjs/common";
 import {InjectRepository} from "@nestjs/typeorm";
-import {Repository, FindConditions} from "typeorm";
-import {createHash} from "crypto";
 
 import {UserEntity} from "./user.entity";
 import {IUserCreateFields} from "./interfaces";

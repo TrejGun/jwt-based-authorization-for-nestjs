@@ -29,14 +29,6 @@ export class AddAuthTable1572880566396 implements MigrationInterface {
           name: "refresh_token_expires_at",
           type: "bigint",
         },
-        {
-          name: "time_created_at",
-          type: "timestamptz",
-        },
-        {
-          name: "time_updated_at",
-          type: "timestamptz",
-        },
       ],
       foreignKeys: [
         {
@@ -63,6 +55,7 @@ export class AddAuthTable1572880566396 implements MigrationInterface {
     `);
 
     await queryRunner.query(`
+      DROP TRIGGER IF EXISTS delete_expired_tokens_trigger ON test.auth;
       CREATE TRIGGER delete_expired_tokens_trigger
       AFTER INSERT ON test.auth
       EXECUTE PROCEDURE delete_expired_tokens()

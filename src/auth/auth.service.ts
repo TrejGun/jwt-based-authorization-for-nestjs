@@ -8,8 +8,8 @@ import uuid from "uuid";
 import {UserService} from "../user/user.service";
 import {UserEntity} from "../user/user.entity";
 import {IAuth, ILoginFields} from "./interfaces";
-import {accessTokenExpiresIn, refreshTokenExpiresIn} from "./auth.constants";
 import {AuthEntity} from "./auth.entity";
+import {accessTokenExpiresIn, refreshTokenExpiresIn} from "./auth.constants";
 
 @Injectable()
 export class AuthService {
@@ -19,10 +19,6 @@ export class AuthService {
     private readonly userService: UserService,
     private readonly jwtService: JwtService,
   ) {}
-
-  public async validateUser(email: string, password: string): Promise<any> {
-    return this.userService.getByCredentials(email, password);
-  }
 
   public async login(data: ILoginFields): Promise<IAuth> {
     const user = await this.userService.getByCredentials(data.email, data.password);
