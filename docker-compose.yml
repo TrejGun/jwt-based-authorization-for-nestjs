@@ -10,3 +10,23 @@ services:
       POSTGRES_PASSWORD: password
     volumes:
       - ./data/postgres:/var/lib/postgresql/data
+
+  server:
+    image: nestjs-jwt-example
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    command: npm start
+    environment:
+      NODE_ENV: development
+      HOST: "0.0.0.0"
+      PORT: 3000
+      POSTGRES_URL: postgres://postgres:password@postgres/postgres
+      JWT_SECRET_KEY: keyboard_cat
+    depends_on:
+      - postgres
+    links:
+      - postgres
+
