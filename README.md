@@ -3,7 +3,11 @@
 ## Installation
 
 I assume you have node, yarn/npm and postgres
+otherwise you can use docker 
 
+```shell script
+docker-compose up --build
+```
 
 First of all you have to download dependencies
 ```bash
