@@ -36,7 +36,7 @@
     "ts-jest": "24.2.0",
     "ts-node": "8.5.4",
     "tsc-watch": "4.0.0",
-    "typescript": "3.7.2",
+    "typescript": "3.7.3",
     "uuid": "3.3.3"
   },
   "license": "MIT",
