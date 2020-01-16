@@ -37,7 +37,7 @@
     "ts-node": "8.6.2",
     "tsc-watch": "4.0.0",
     "typescript": "3.7.4",
-    "uuid": "3.3.3"
+    "uuid": "3.4.0"
   },
   "license": "MIT",
   "main": "./dist/index.js",
