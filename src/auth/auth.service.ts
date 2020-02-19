@@ -2,7 +2,6 @@ import {Injectable, UnauthorizedException} from "@nestjs/common";
 import {JwtService} from "@nestjs/jwt";
 import {InjectRepository} from "@nestjs/typeorm";
 import {Repository, FindConditions, DeleteResult} from "typeorm";
-// eslint-disable-next-line import/default
 import uuid from "uuid";
 
 import {UserService} from "../user/user.service";
