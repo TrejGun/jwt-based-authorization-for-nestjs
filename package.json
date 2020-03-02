@@ -48,7 +48,7 @@
     "prettier": "1.19.1",
     "ts-jest": "25.2.1",
     "ts-node": "8.6.2",
-    "tsc-watch": "4.2.2",
+    "tsc-watch": "4.2.3",
     "typescript": "3.8.2"
   },
   "license": "MIT",
