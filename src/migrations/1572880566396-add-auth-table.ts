@@ -29,6 +29,18 @@ export class AddAuthTable1572880566396 implements MigrationInterface {
           name: "refresh_token_expires_at",
           type: "bigint",
         },
+        {
+          name: "access_token_expires_at",
+          type: "bigint",
+        },
+        {
+          name: "time_created_at",
+          type: "timestamptz",
+        },
+        {
+          name: "time_updated_at",
+          type: "timestamptz",
+        },
       ],
       foreignKeys: [
         {
@@ -42,7 +54,6 @@ export class AddAuthTable1572880566396 implements MigrationInterface {
 
     await queryRunner.createTable(table, true);
 
-    // 30 days refers to src/auth/auth.constants.ts
     await queryRunner.query(`
       CREATE FUNCTION delete_expired_tokens() RETURNS trigger
       LANGUAGE plpgsql
