@@ -43,7 +43,7 @@
     "eslint-plugin-promise": "4.2.1",
     "eslint-plugin-standard": "4.0.1",
     "husky": "4.2.3",
-    "jest": "25.2.3",
+    "jest": "25.2.4",
     "lint-staged": "10.0.10",
     "prettier": "2.0.2",
     "ts-jest": "25.2.1",
