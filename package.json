@@ -25,7 +25,7 @@
     "@nestjs/testing": "7.0.7",
     "@trejgun/eslint-config": "0.0.7",
     "@types/express": "4.17.4",
-    "@types/jest": "25.1.4",
+    "@types/jest": "25.1.5",
     "@types/node": "12.12.34",
     "@types/passport": "1.0.3",
     "@types/passport-jwt": "3.0.3",
