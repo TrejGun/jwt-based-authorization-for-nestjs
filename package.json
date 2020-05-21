@@ -19,7 +19,7 @@
     "rxjs": "6.5.5",
     "typeorm": "0.2.25",
     "typeorm-naming-strategies": "1.1.0",
-    "uuid": "8.0.0"
+    "uuid": "8.1.0"
   },
   "devDependencies": {
     "@nestjs/testing": "7.0.13",
