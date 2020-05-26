@@ -9,7 +9,7 @@
     "@nestjs/jwt": "7.0.0",
     "@nestjs/passport": "7.0.0",
     "@nestjs/platform-express": "7.1.0",
-    "@nestjs/typeorm": "7.0.1",
+    "@nestjs/typeorm": "7.1.0",
     "apollo-server-express": "2.13.1",
     "dotenv": "8.2.0",
     "express": "4.17.1",
