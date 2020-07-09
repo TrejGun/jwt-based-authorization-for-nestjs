@@ -15,7 +15,7 @@
     "express": "4.17.1",
     "passport": "0.4.1",
     "passport-jwt": "4.0.0",
-    "pg": "8.2.2",
+    "pg": "8.3.0",
     "rxjs": "6.6.0",
     "typeorm": "0.2.25",
     "typeorm-naming-strategies": "1.1.0",
