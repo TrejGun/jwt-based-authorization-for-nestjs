@@ -55,7 +55,7 @@ export class AddAuthTable1572880566396 implements MigrationInterface {
     await queryRunner.createTable(table, true);
 
     await queryRunner.query(`
-      CREATE FUNCTION delete_expired_tokens() RETURNS trigger
+      CREATE OR REPLACE FUNCTION delete_expired_tokens() RETURNS trigger
       LANGUAGE plpgsql
       AS $$
         BEGIN

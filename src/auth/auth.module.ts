@@ -5,9 +5,9 @@ import {TypeOrmModule} from "@nestjs/typeorm";
 
 import {AuthService} from "./auth.service";
 import {AuthEntity} from "./auth.entity";
-import {JwtStrategy} from "./jwt.strategy";
 import {UserModule} from "../user/user.module";
-import {AuthController} from "./auth.controller";
+import {AuthJwtController} from "./auth.jwt.controller";
+import {JwtStrategy} from "./strategies";
 
 @Module({
   imports: [
@@ -18,7 +18,7 @@ import {AuthController} from "./auth.controller";
       secret: process.env.JWT_SECRET_KEY,
     }),
   ],
-  controllers: [AuthController],
+  controllers: [AuthJwtController],
   providers: [AuthService, JwtStrategy],
   exports: [AuthService],
 })
