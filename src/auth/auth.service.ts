@@ -51,7 +51,6 @@ export class AuthService {
       .create({
         user,
         refreshToken,
-        accessTokenExpiresAt: date.getTime() + accessTokenExpiresIn,
         refreshTokenExpiresAt: date.getTime() + refreshTokenExpiresIn,
       })
       .save();

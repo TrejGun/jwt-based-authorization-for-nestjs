@@ -30,10 +30,6 @@ export class AddAuthTable1572880566396 implements MigrationInterface {
           type: "bigint",
         },
         {
-          name: "access_token_expires_at",
-          type: "bigint",
-        },
-        {
           name: "time_created_at",
           type: "timestamptz",
         },

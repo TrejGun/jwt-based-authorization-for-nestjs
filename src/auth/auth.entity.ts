@@ -19,12 +19,11 @@ export class AuthEntity extends BaseEntity implements IAuth {
   @Column({type: "varchar"})
   public refreshToken: string;
 
-  @Column({type: "int"})
+  @Column({type: "bigint"})
   public refreshTokenExpiresAt: number;
 
   public accessToken: string;
 
-  @Column({type: "bigint"})
   public accessTokenExpiresAt: number;
 
   @JoinColumn()
