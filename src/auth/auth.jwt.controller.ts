@@ -17,6 +17,7 @@ export class AuthJwtController {
     return this.authService.login(data);
   }
 
+  @Public()
   @Post("refresh")
   async refreshToken(@Body() data: JwtRefreshTokenSchema): Promise<IAuth> {
     return this.authService.refresh(data);
